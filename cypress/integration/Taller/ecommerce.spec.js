@@ -19,6 +19,7 @@ context("Busqueda de productos", () => {
     //Podemos simular la pulsación de enter
     cy.get("#search_query_top").type("Dress{enter}");
 
+    //Comprobamos que todos los elementos son visibles
     cy.get(
       ".product-container > .right-block > .availability > .available-now"
     ).each(($el) => {
