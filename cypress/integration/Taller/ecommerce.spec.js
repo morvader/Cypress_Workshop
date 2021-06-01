@@ -24,4 +24,21 @@ context("Busqueda de productos", () => {
       cy.get($el).should("contain.text", "Mac");
     });
   });
+
+  it("Ir a detalle de producto navegando por menus", () => {
+    cy.contains("Desktops")
+      .parent()
+      .realHover()
+      .contains("Mac")
+      .click()
+      .get("h4 > a")
+      .click();
+
+    cy.get(".col-sm-4 > h1").should("have.text", "iMac");
+
+    cy.get(":nth-child(4) > :nth-child(1) > h2").should(
+      "contain.text",
+      "$122.00"
+    );
+  });
 });
