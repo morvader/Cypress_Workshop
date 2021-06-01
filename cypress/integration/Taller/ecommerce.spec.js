@@ -4,26 +4,24 @@ context("Busqueda de productos", () => {
   beforeEach("go to home page", () => {
     cy.visit("/");
   });
+  it("Búsqueda de los componentes correctos", () => {
+    cy.get("[name='search']")
+      .type("phone")
+      .get(".input-group-btn > .btn")
+      .click();
 
-  it("La blusa se muestra cone l nombre correcto", () => {
-    cy.get("#search_query_top").type("Blouse").get("#searchbox > .btn").click();
-
-    // Este localizador es más robusto que el que recomienda Cypress
-    cy.get(".product_list > li:first-child .product-name").should(
-      "contain.text",
-      "Blouse"
-    );
+    cy.get(".product-thumb .caption > h4 > a").should("have.text", "iPhone");
   });
 
-  it("Todos los productos estás disponibles", () => {
+  it("Comprobar todos los productos", () => {
     //Podemos simular la pulsación de enter
-    cy.get("#search_query_top").type("Dress{enter}");
+    cy.get("[name='search']").type("Mac{enter}");
+
+    cy.get(".product-thumb .caption > h4 > a").its("length").should("eq", 4);
 
     //Comprobamos que todos los elementos son visibles
-    cy.get(
-      ".product-container > .right-block > .availability > .available-now"
-    ).each(($el) => {
-      cy.get($el).should("be.visible");
+    cy.get(".product-thumb .caption > h4 > a").each(($el) => {
+      cy.get($el).should("contain.text", "Mac");
     });
   });
 });
