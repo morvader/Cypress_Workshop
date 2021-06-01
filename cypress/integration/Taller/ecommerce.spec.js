@@ -2,7 +2,7 @@
 
 context("Busqueda de productos", () => {
   beforeEach("go to home page", () => {
-    cy.visit("http://automationpractice.com/index.php");
+    cy.visit("/");
   });
 
   it("La blusa se muestra cone l nombre correcto", () => {
@@ -13,5 +13,16 @@ context("Busqueda de productos", () => {
       "contain.text",
       "Blouse"
     );
+  });
+
+  it("Todos los productos estás disponibles", () => {
+    //Podemos simular la pulsación de enter
+    cy.get("#search_query_top").type("Dress{enter}");
+
+    cy.get(
+      ".product-container > .right-block > .availability > .available-now"
+    ).each(($el) => {
+      cy.get($el).should("be.visible");
+    });
   });
 });
