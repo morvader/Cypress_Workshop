@@ -19,7 +19,7 @@ context("Busqueda de productos", () => {
 
     cy.get(".product-thumb .caption > h4 > a").its("length").should("eq", 4);
 
-    //Comprobamos que todos los elementos son visibles
+    //Comprobamos que todos los elementos son correctos
     cy.get(".product-thumb .caption > h4 > a").each(($el) => {
       cy.get($el).should("contain.text", "Mac");
     });
